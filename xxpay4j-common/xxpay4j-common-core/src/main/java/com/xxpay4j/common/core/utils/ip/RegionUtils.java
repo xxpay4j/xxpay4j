@@ -1,0 +1,152 @@
+package com.xxpay4j.common.core.utils.ip;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.resource.ResourceUtil;
+import lombok.extern.slf4j.Slf4j;
+import com.xxpay4j.common.core.exception.ServiceException;
+import com.xxpay4j.common.core.utils.StringUtils;
+import org.lionsoul.ip2region.service.Config;
+import org.lionsoul.ip2region.service.Ip2Region;
+import org.lionsoul.ip2region.xdb.Util;
+
+import java.io.File;
+import java.net.URL;
+import java.time.Duration;
+
+/**
+ * IP地址行政区域工具类
+ * 参考地址：<a href="https://gitee.com/lionsoul/ip2region/tree/master/binding/java">ip2region xdb java 查询客户端实现</a>
+ * xdb数据库文件下载：<a href="https://gitee.com/lionsoul/ip2region/tree/master/data">ip2region data</a>
+ *
+ * @author 秋辞未寒
+ */
+@Slf4j
+public class RegionUtils {
+
+    // 默认IPv4地址库文件路径
+    // 下载地址：https://gitee.com/lionsoul/ip2region/blob/master/data/ip2region_v4.xdb
+    public static final String DEFAULT_IPV4_XDB_PATH = "ip2region_v4.xdb";
+
+    // 默认IPv6地址库文件路径
+    // 下载地址：https://gitee.com/lionsoul/ip2region/blob/master/data/ip2region_v6.xdb
+    public static final String DEFAULT_IPV6_XDB_PATH = "ip2region_v6.xdb";
+
+    // 未知地址
+    public static final String UNKNOWN_ADDRESS = "未知";
+
+    // Ip2Region服务实例
+    private static Ip2Region ip2Region;
+
+    // 初始化Ip2Region服务实例
+    static {
+        try {
+            // 创建临时文件用于处理IP离线数据库xdb文件
+            File v4TempXdb = FileUtil.writeFromStream(ResourceUtil.getStream(DEFAULT_IPV4_XDB_PATH), FileUtil.createTempFile());
+
+            // IPv4配置
+            Config v4Config = Config.custom()
+                .setCachePolicy(Config.BufferCache)
+                .setXdbPath(v4TempXdb.getPath())
+                .asV4();
+            // 删除临时文件
+            // 注意：因为使用的 CachePolicy 为 BufferCache，BufferCache是加载整个xdb文件到内存中，所以临时文件的删除不会影响到正常的使用。如果使用的是 VIndexCache 或 NoCache（即实时读取文件），删除临时文件会导致xdb数据库读取不到而无法使用。
+            // CachePolicy的三种策略：BufferCache（全量读取xdb到内存中）、VIndexCache（按需读取并缓存）、NoCache（实时读取）
+            // 一般而言，更建议把xdb数据库放到一个指定的文件目录中（即不打包进jar包中），然后使用 NoCache + 配合SearcherPool的并发池读取数据，更方便随时更新xdb数据库
+            v4TempXdb.delete();
+
+            // IPv6配置
+            Config v6Config = null;
+            URL v6Url = ResourceUtil.getResource(DEFAULT_IPV6_XDB_PATH);
+            if (v6Url == null) {
+                log.info("未加载 IPv6 地址库：未在类路径下找到文件 {}。当前仅启用 IPv4 查询。如需启用 IPv6，请将 ip2region_v6.xdb 放置到 resources 目录（与 {} 同级）。",
+                    DEFAULT_IPV6_XDB_PATH, DEFAULT_IPV4_XDB_PATH);
+            } else {
+                File v6TempXdb = FileUtil.writeFromStream(v6Url.openStream(), FileUtil.createTempFile());
+                v6Config = Config.custom()
+                    .setCachePolicy(Config.BufferCache)
+                    .setXdbPath(v6TempXdb.getPath())
+                    .asV6();
+                // 删除临时文件
+                v6TempXdb.delete();
+            }
+
+            // 初始化Ip2Region实例
+            RegionUtils.ip2Region = Ip2Region.create(v4Config, v6Config);
+            log.info("Ip2RegionHelper初始化成功，加载IP地址库数据成功！");
+        } catch (Exception e) {
+            throw new ServiceException("Ip2RegionHelper初始化失败，原因：{}", e.getMessage());
+        }
+    }
+
+    /**
+     * 根据IP地址离线获取城市
+     *
+     * @param ipString ip地址字符串
+     */
+    public static String getRegion(String ipString) {
+        try {
+            String region = ip2Region.search(ipString);
+            if (StringUtils.isBlank(region)) {
+                region = UNKNOWN_ADDRESS;
+            }
+            return region;
+        } catch (Exception e) {
+            log.error("IP地址离线获取城市异常 {}", ipString);
+            return UNKNOWN_ADDRESS;
+        }
+
+    }
+
+    /**
+     * 根据IP地址离线获取城市
+     *
+     * @param ipBytes ip地址字节数组
+     */
+    public static String getRegion(byte[] ipBytes) {
+        try {
+            String region = ip2Region.search(ipBytes);
+            if (StringUtils.isBlank(region)) {
+                region = UNKNOWN_ADDRESS;
+            }
+            return region;
+        } catch (Exception e) {
+            log.error("IP地址离线获取城市异常 {}", Util.ipToString(ipBytes));
+            return UNKNOWN_ADDRESS;
+        }
+    }
+
+    /**
+     * 关闭Ip2Region服务
+     */
+    public static void close() {
+        if (ip2Region == null) {
+            return;
+        }
+        try {
+            ip2Region.close(10000);
+        } catch (Exception e) {
+            log.error("Ip2Region服务关闭异常", e);
+        }
+    }
+
+    /**
+     * 关闭Ip2Region服务
+     *
+     * @param timeout 关闭超时时间
+     */
+    public static void close(final Duration timeout) {
+        if (ip2Region == null) {
+            return;
+        }
+        if (timeout == null) {
+            close();
+            return;
+        }
+        try {
+            ip2Region.close(timeout.toMillis());
+        } catch (Exception e) {
+            log.error("Ip2Region服务关闭异常", e);
+        }
+    }
+
+}

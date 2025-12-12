@@ -1,0 +1,3 @@
+com.xxpay4j.common.encrypt.config.EncryptorAutoConfiguration
+com.xxpay4j.common.encrypt.config.ApiDecryptAutoConfiguration
+

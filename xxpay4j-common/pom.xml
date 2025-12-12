@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>xxpay4j</artifactId>
+        <groupId>com.xxpay4j</groupId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <modules>
+        <module>xxpay4j-common-bom</module>
+        <module>xxpay4j-common-social</module>
+        <module>xxpay4j-common-core</module>
+        <module>xxpay4j-common-doc</module>
+        <module>xxpay4j-common-excel</module>
+        <module>xxpay4j-common-idempotent</module>
+        <module>xxpay4j-common-job</module>
+        <module>xxpay4j-common-log</module>
+        <module>xxpay4j-common-mail</module>
+        <module>xxpay4j-common-mybatis</module>
+        <module>xxpay4j-common-oss</module>
+        <module>xxpay4j-common-ratelimiter</module>
+        <module>xxpay4j-common-redis</module>
+        <module>xxpay4j-common-satoken</module>
+        <module>xxpay4j-common-security</module>
+        <module>xxpay4j-common-web</module>
+        <module>xxpay4j-common-translation</module>
+        <module>xxpay4j-common-sensitive</module>
+        <module>xxpay4j-common-json</module>
+        <module>xxpay4j-common-encrypt</module>
+        <module>xxpay4j-common-tenant</module>
+        <module>xxpay4j-common-websocket</module>
+        <module>xxpay4j-common-sse</module>
+    </modules>
+
+    <artifactId>xxpay4j-common</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+        common 通用模块
+    </description>
+
+</project>
