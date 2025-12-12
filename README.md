@@ -112,14 +112,14 @@
 使用框架前请仔细阅读文档重点注意事项
 <br>
 >[初始化项目 必看](https://doc.xxpay4j.com/#/pay4j)
->>[https://doc.xxpay4j.com/#/xxpay4j/quickstart/init](https://doc.xxpay4j.com/#/xxpay4j/quickstart/init)
+>>[https://doc.xxpay4j.com/#/xxpay4j/quickstart/init](https://doc.xxpay4j.com/#/xxpay4j/init)
 >
 >
 >[部署项目 必看](https://doc.pay4j.com/#/pay4j/quickstart/deploy)
->>[https://doc.xxpay4j.com/#/xxpay4j/quickstart/deploy](https://doc.xxpay4j.com/#/xxpay4j/quickstart/deploy)
+>>[https://doc.xxpay4j.com/#/xxpay4j/quickstart/deploy](https://doc.xxpay4j.com/#/xxpay4j/deploy)
 >
 >[如何加群](https://doc.pay4j.com/#/common/add_group)
->>[https://doc.xxpay4j.com/#/common/add_group](https://doc.xxpay4j.com/#/common/add_group)
+>>[https://doc.xxpay4j.com/#/common/add_group](https://doc.xxpay4j.com/#/add_group)
 >
 >[参考文档 Wiki](https://doc.pay4j.com)
 >>[https://doc.xxpay4j.com](https://doc.xxpay4j.com)
