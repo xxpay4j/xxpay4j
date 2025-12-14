@@ -17,16 +17,16 @@
 > 项目代码、文档 均开源免费可商用 遵循开源协议在项目中保留开源协议文件即可<br>
 活到老写到老 为兴趣而开源 为学习而开源 为让大家真正可以学到技术而开源
 
-> 系统演示: [传送门](https://doc.xxpay4j.com/#/common/demo)
+> 系统演示: [传送门](https://xxpay4j.com/#/common/demo)
 
 > 官方前端项目地址: [gitee](https://gitee.com/xxpay4j/xxpay4j-ui) - [github](https://github.com/xxpay4j/xxpay4j-ui) <br>
 
-> 文档地址: [xxpay4j-doc](https://doc.xxpay4j.com)
+> 文档地址: [xxpay4j-doc](https://xxpay4j.com)
 
 ## 赞助商
 
 
-[如何成为赞助商 加群联系作者详谈 ](https://doc.xxpay4j.com)
+[如何成为赞助商 加群联系作者详谈 ](https://xxpay4j.com)
 
 # 本框架技术架构方案
 
@@ -111,18 +111,18 @@
 
 使用框架前请仔细阅读文档重点注意事项
 <br>
->[初始化项目 必看](https://doc.xxpay4j.com/#/pay4j)
->>[https://doc.xxpay4j.com/#/xxpay4j/quickstart/init](https://doc.xxpay4j.com/#/xxpay4j/init)
+>[初始化项目 必看](https://xxpay4j.com/#/pay4j)
+>>[https://xxpay4j.com/#/xxpay4j/quickstart/init](https://xxpay4j.com/#/xxpay4j/init)
 >
 >
 >[部署项目 必看](https://doc.pay4j.com/#/pay4j/quickstart/deploy)
->>[https://doc.xxpay4j.com/#/xxpay4j/quickstart/deploy](https://doc.xxpay4j.com/#/xxpay4j/deploy)
+>>[https://xxpay4j.com/#/xxpay4j/quickstart/deploy](https://xxpay4j.com/#/xxpay4j/deploy)
 >
->[如何加群](https://doc.pay4j.com/#/common/add_group)
->>[https://doc.xxpay4j.com/#/common/add_group](https://doc.xxpay4j.com/#/add_group)
+>[如何加群](https://pay4j.com/#/common/add_group)
+>>[https://xxpay4j.com/#/common/add_group](https://xxpay4j.com/#/add_group)
 >
 >[参考文档 Wiki](https://doc.pay4j.com)
->>[https://doc.xxpay4j.com](https://doc.xxpay4j.com)
+>>[https://xxpay4j.com](https://xxpay4j.com)
 
 ## 软件架构图
 
@@ -130,7 +130,7 @@
 
 ## 如何参与贡献
 
-[参与贡献的方式 https://doc.xxpay4j.com/#/common/contribution](https://doc.xxpay4j.com/#/common/contribution)
+[参与贡献的方式 https://xxpay4j.com/#/common/contribution](https://xxpay4j.com/#/common/contribution)
 
 
 ## 演示图例
